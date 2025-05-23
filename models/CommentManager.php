@@ -66,4 +66,11 @@ class CommentManager extends AbstractEntityManager
         return $result->rowCount() > 0;
     }
 
+    public function countCommentsByArticleId(int $id) : int
+    {
+        $sql = "SELECT (* FROM comment WHERE id = :id";
+        $result = $this->db->query($sql, ['id' => $id]);
+        return $result->fetch()[0];
+    }
+
 }

@@ -10,6 +10,7 @@ class Comment extends AbstractEntity
     private int $idArticle;
     private string $pseudo;
     private string $content;
+
     private DateTime $dateCreation;
     
     /**

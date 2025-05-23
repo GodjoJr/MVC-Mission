@@ -25,8 +25,11 @@ class ArticleController
         $id = Utils::request("id", -1);
 
         $articleManager = new ArticleManager();
+
+        // On incrémente une vue sur l'article.
+        $articleManager->addView($id);
+
         $article = $articleManager->getArticleById($id);
-        
         if (!$article) {
             throw new Exception("L'article demandé n'existe pas.");
         }
@@ -56,4 +59,5 @@ class ArticleController
         $view = new View("A propos");
         $view->render("apropos");
     }
+
 }

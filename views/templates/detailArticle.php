@@ -15,6 +15,7 @@
         <?php if ($article->getDateUpdate() != null) { ?>
             <span class="info"> Modifié le <?= Utils::convertDateToFrenchFormat($article->getDateUpdate()) ?></span>
         <?php } ?>
+        <span class="info"> <?= $article->getViews() ?> vues</span>
     </div>
 </article>
 
@@ -27,11 +28,16 @@
             echo '<ul>';
             foreach ($comments as $comment) {
                 echo '<li>';
+                echo '  <div class="content">';
                 echo '  <div class="smiley">☻</div>';
                 echo '  <div class="detailComment">';
                 echo '      <h3 class="info">Le ' . Utils::convertDateToFrenchFormat($comment->getDateCreation()) . ", " . Utils::format($comment->getPseudo()) . ' a écrit :</h3>';
                 echo '      <p class="content">' . Utils::format($comment->getContent()) . '</p>';
                 echo '  </div>';
+                echo '  </div>';
+                if(isset($_SESSION['user']) && !empty($_SESSION['user'])) {
+                    echo '  <a class="submit" href="index.php?action=deleteComment&id=' . $comment->getId() . '" '. Utils::askConfirmation("Êtes-vous sûr de vouloir supprimer cet article ?") . '>Supprimer</a>';
+                }
                 echo '</li>';
             }               
             echo '</ul>';
